@@ -1,5 +1,5 @@
 const React = require('react');
-const { Text, Box, Newline, Spacer } = require('ink');
+const { Text } = require('ink');
 
 const ActionReport = ({ message }) => (
   <Text>
