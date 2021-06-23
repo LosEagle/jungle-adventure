@@ -4,6 +4,7 @@ const importJsx = require('import-jsx');
 
 const CharFitness = importJsx('../CharFitness/CharFitness');
 const ActionReport = importJsx('../ActionReport/ActionReport');
+const ActionDecision = importJsx('../ActionDecision/ActionDecision');
 
 const App = () => (
   <>
@@ -12,6 +13,9 @@ const App = () => (
     </Box>
     <Box marginTop="1">
       <ActionReport />
+    </Box>
+    <Box marginTop="1">
+      <ActionDecision />
     </Box>
   </>
 );
