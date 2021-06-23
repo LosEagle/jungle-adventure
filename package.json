@@ -16,5 +16,10 @@
     "url": "https://github.com/LosEagle/jungle-adventure/issues"
   },
   "homepage": "https://github.com/LosEagle/jungle-adventure#readme",
-  "dependencies": {}
+  "dependencies": {
+    "import-jsx": "^4.0.0",
+    "ink": "^3.0.8",
+    "ink-progress-bar": "^3.0.0",
+    "react": "^16.14.0"
+  }
 }
