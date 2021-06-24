@@ -3,7 +3,7 @@ const { Text } = require('ink');
 
 const ActionReport = ({ message }) => (
   <Text>
-    > { message || "I'm idling at my camp." }
+    > { message }
   </Text>
 );
 

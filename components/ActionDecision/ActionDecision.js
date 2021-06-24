@@ -1,8 +1,5 @@
 const React = require('react');
 const { Box, Text, Newline } = require('ink');
-const importJsx = require('import-jsx');
-
-const ActionInput = importJsx('../ActionInput/ActionInput');
 
 const ActionDecision = () => (
   <>
@@ -15,9 +12,6 @@ const ActionDecision = () => (
           <Newline />
           <Text>3) Rest</Text>
         </Text>
-      </Box>
-      <Box marginTop="1">
-        <ActionInput />
       </Box>
     </Box>
   </>
