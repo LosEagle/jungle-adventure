@@ -20,6 +20,8 @@
     "import-jsx": "^4.0.0",
     "ink": "^3.0.8",
     "ink-progress-bar": "^3.0.0",
+    "inquirer": "^8.1.1",
+    "ramda": "^0.27.1",
     "react": "^16.14.0"
   }
 }
