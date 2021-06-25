@@ -13,8 +13,8 @@ const { useState, useEffect } = React;
 
 const App = () => {
   const [message, setMessage] = useState('Loading ...');
-  const [hp, setHp] = useState(100);
-  const [stamina, setStamina] = useState(100);
+  const [hp, setHpState] = useState(100);
+  const [stamina, setStaminaState] = useState(100);
 
   useEffect(() => {
     Application.keepAlive();
@@ -44,10 +44,30 @@ const App = () => {
 
   useInput((input) => {
     const actionResult = UserInput.doAction(Number(input));
+    const isHpAffected = R.prop('hp')(actionResult);
+    const isStaminaAffected = R.prop('stamina')(actionResult);
+    const isHpValid = R.lte(R.path(['hp'], actionResult), 100);
+    const isStaminaValid = R.lte(R.path(['stamina'], actionResult), 100);
+
+    const shouldChangeHp = () => R.and(isHpAffected, isHpValid);
+    const shouldChangeStamina = () => R.and(isStaminaAffected, isStaminaValid);
+    const shouldChangeBoth = () => R.and(shouldChangeHp(), shouldChangeStamina());
+    const setHp = (changedHp) => setHpState(changedHp);
+    const setStamina = (changedStamina) => setStaminaState(changedStamina);
+
+    R.cond([
+      [
+        shouldChangeBoth,
+        (actionResult) => {
+          setHp(hp + actionResult.hp);
+          setStamina(stamina + actionResult.stamina);
+        }
+      ],
+      [shouldChangeHp, (actionResult) => setHpState(hp + actionResult.hp)],
+      [shouldChangeStamina, (actionResult) => setStaminaState(stamina + actionResult.stamina)]
+    ])(actionResult);
 
     setMessage(actionResult.message);
-    R.ifElse(R.prop('hp'), () => setHp(hp + actionResult.hp), R.F)(actionResult);
-    R.ifElse(R.prop('stamina'), () => setStamina(stamina + actionResult.stamina), R.F)(actionResult);
   });
 
   return (

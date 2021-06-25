@@ -6,7 +6,7 @@ const CharAction = {
       (max) => Math.random() * max,
       Math.floor,
     );
-    
+
     const lostHp = calculateFitnessLoss(20);
     const lostStamina = calculateFitnessLoss(30);
 
@@ -17,10 +17,30 @@ const CharAction = {
     };
   },
   heal: () => {
-    return 'I drank potion.';
+    const calculateHpGain = R.pipe(
+      (max) => Math.random() * max,
+      Math.floor,
+    );
+
+    const gainedHp = calculateHpGain(20);
+
+    return {
+      hp: gainedHp,
+      message: `I drank a healing potion. I've regained ${gainedHp} HP.`
+    };
   },
   rest: () => {
-    return 'I\'m rested';
+    const calculateStaminaGain = R.pipe(
+      (max) => Math.random() * max,
+      Math.floor,
+    );
+
+    const gainedStamina = calculateStaminaGain(20);
+
+    return {
+      stamina: gainedStamina,
+      message: `I've finally had a good night's sleep. I've regained ${gainedStamina} stamina.`
+    };
   },
   idle: () => {
     return {
