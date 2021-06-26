@@ -31,27 +31,16 @@ const App = () => {
     )(hp);
   }, [hp]);
 
-  useEffect(() => {
-    R.ifElse(
-      R.lte(R.__, 0),
-      async () => {
-        await setMessage('I\'m exhausted.');
-        Application.exit();
-      },
-      R.F,
-    )(stamina);
-  }, [stamina]);
-
   useInput((input) => {
     const actionResult = UserInput.doAction(Number(input));
+
     const isHpAffected = R.prop('hp')(actionResult);
     const isStaminaAffected = R.prop('stamina')(actionResult);
     const isHpValid = R.lte(R.path(['hp'], actionResult), 100);
     const isStaminaValid = R.lte(R.path(['stamina'], actionResult), 100);
 
-    const shouldChangeHp = () => R.and(isHpAffected, isHpValid);
     const shouldChangeStamina = () => R.and(isStaminaAffected, isStaminaValid);
-    const shouldChangeBoth = () => R.and(shouldChangeHp(), shouldChangeStamina());
+    const shouldChangeBoth = () => R.and(R.T, shouldChangeStamina());
     const setHp = (changedHp) => setHpState(changedHp);
     const setStamina = (changedStamina) => setStaminaState(changedStamina);
 
@@ -63,7 +52,6 @@ const App = () => {
           setStamina(stamina + actionResult.stamina);
         }
       ],
-      [shouldChangeHp, (actionResult) => setHpState(hp + actionResult.hp)],
       [shouldChangeStamina, (actionResult) => setStaminaState(stamina + actionResult.stamina)]
     ])(actionResult);
 
